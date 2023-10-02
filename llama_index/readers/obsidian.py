@@ -16,7 +16,7 @@ from llama_index.readers.file.markdown_reader import MarkdownReader
 from llama_index.schema import Document
 
 
-class ObsidianReader(BaseReader):
+class ObsidianReader(BaseReader):a
     """Utilities for loading data from an Obsidian Vault.
 
     Args:
@@ -36,7 +36,9 @@ class ObsidianReader(BaseReader):
             for filename in filenames:
                 if filename.endswith(".md"):
                     filepath = os.path.join(dirpath, filename)
-                    content = MarkdownReader().load_data(Path(filepath))
+                    file = Path(filepath)
+                    metadata = {"file_name": str(file.relative_to(self.input_dir))}
+                    content = MarkdownReader().load_data(file, extra_info=metadata)
                     docs.extend(content)
         return docs
 
